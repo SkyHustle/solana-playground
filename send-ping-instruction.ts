@@ -26,27 +26,27 @@ const instruction = new TransactionInstruction({
 });
 
 const transaction = new Transaction();
-console.log(`Transaction Created `, transaction);
+console.log(`Transaction Created: `, transaction);
 
 transaction.add(instruction);
-console.log(`Instruction added to transaction `, transaction);
+console.log(`Instruction added to transaction: `, transaction);
 
 const latestBlockHash = await connection.getLatestBlockhash();
-console.log(`Latest Blockhash `, latestBlockHash);
+console.log(`Latest Blockhash: `, latestBlockHash);
 
 transaction.recentBlockhash = latestBlockHash.blockhash;
-console.log(`Transaction with latest blockhash `, transaction);
+console.log(`Transaction with latest blockhash: `, transaction);
 
 transaction.feePayer = payer.publicKey;
-console.log(`Transaction with payer `, transaction);
+console.log(`Transaction with payer: `, transaction);
 
 // Serialize the transaction message to get its size
 const compiledMessage = transaction.compileMessage();
-console.log(`Transaction compiled message `, compiledMessage);
+console.log(`Transaction compiled message: `, compiledMessage);
 
 const fee = await connection.getFeeForMessage(compiledMessage);
-console.log(`Transaction fee `, fee);
+console.log(`Transaction fee: `, fee);
 
 const signature = await sendAndConfirmTransaction(connection, transaction, [payer]);
 
-console.log(`✅ Transaction completed! Signature is ${signature}`);
+console.log(`✅ Transaction completed! Signature is: ${signature}`);
