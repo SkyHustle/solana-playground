@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { getKeypairFromEnvironment } from "@solana-developers/helpers";
-import { clusterApiUrl, Connection, Keypair, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
-import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer, getMint } from "@solana/spl-token";
+import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { getOrCreateAssociatedTokenAccount, transfer } from "@solana/spl-token";
 
 (async () => {
     // Connect to cluster
