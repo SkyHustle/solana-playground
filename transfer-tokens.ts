@@ -49,13 +49,11 @@ import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer, getMin
     // );
     // console.log("mint tx:", signature);
 
-    const amountInTokens = 9.99999999; // Amount in tokens you want to transfer
-    let amountInSmallestUnit = amountInTokens * Math.pow(10, 9); // Convert to smallest unit, decimal precision of mint is 9
-
-    // Round to the nearest integer
-    amountInSmallestUnit = Math.round(amountInSmallestUnit);
-
-    console.log(`Amount in smallest unit: ${amountInSmallestUnit}`);
+    // const amountInTokens = 9.99999999; // Amount in tokens you want to transfer
+    // let amountInSmallestUnit = amountInTokens * Math.pow(10, 9); // Convert to smallest unit, decimal precision of mint is 9
+    // // Round to the nearest integer
+    // amountInSmallestUnit = Math.round(amountInSmallestUnit); // 9999999990
+    // console.log(`Amount in smallest unit: ${amountInSmallestUnit}`);
 
     // Transfer the new token to the "toTokenAccount" we just created
     await transfer(
@@ -64,7 +62,7 @@ import { createMint, getOrCreateAssociatedTokenAccount, mintTo, transfer, getMin
         fromTokenAccount.address,
         toTokenAccount.address,
         fromWallet.publicKey,
-        amountInSmallestUnit
+        10000000000
     ).then((signature) => {
         console.log(
             `Transferring 10 tokens from ${fromWallet.publicKey.toBase58()} to ${toWallet.publicKey.toBase58()} Transaction Signature: ${signature}`
