@@ -5,7 +5,7 @@ import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
     const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
 
     const tokenAccounts = await connection.getTokenAccountsByOwner(
-        new PublicKey("EiryZW515JhpSFLLAerrtgL6oHoyyRLnEhPWdZUNPnim"),
+        new PublicKey("8qwq6WQ4cMRB2pZzU55pxsFpFztsyU8YsW8dwtoaN3W1"),
         {
             programId: TOKEN_PROGRAM_ID,
         }
