@@ -29,13 +29,15 @@ import { getKeypairFromEnvironment } from "@solana-developers/helpers";
     // console.log(`Transaction Confirmation : ${txConfirmation}`);
 
     const associatedTokenAccount = await getAssociatedTokenAddress(NATIVE_MINT, wallet.publicKey);
+    console.log(`Associated Token Address: ${associatedTokenAccount.toBase58()}`);
 
     // Create token account to hold your wrapped SOL
-    const ataTransaction = new Transaction().add(
+    const createTokenAccountTx = new Transaction().add(
         createAssociatedTokenAccountInstruction(wallet.publicKey, associatedTokenAccount, wallet.publicKey, NATIVE_MINT)
     );
+    console.log(`Creating Token Account: ${associatedTokenAccount.toBase58()}`);
 
-    await sendAndConfirmTransaction(connection, ataTransaction, [wallet]);
+    await sendAndConfirmTransaction(connection, createTokenAccountTx, [wallet]);
 
     // Transfer SOL to associated token account and use SyncNative to update wrapped SOL balance
     const solTransferTransaction = new Transaction().add(
@@ -51,5 +53,7 @@ import { getKeypairFromEnvironment } from "@solana-developers/helpers";
 
     const accountInfo = await getAccount(connection, associatedTokenAccount);
 
-    console.log(`Native: ${accountInfo.isNative}, Lamports: ${accountInfo.amount}`);
+    console.log(
+        `Native Account Info: ${accountInfo}, isNative: ${accountInfo.isNative}, Lamports: ${accountInfo.amount}`
+    );
 })();
