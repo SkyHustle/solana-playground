@@ -1,28 +1,41 @@
 import { AccountLayout, TOKEN_PROGRAM_ID } from "@solana/spl-token";
 import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
 
+// (async () => {
+//     const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+
+//     const tokenAccounts = await connection.getTokenAccountsByOwner(
+//         new PublicKey("EiryZW515JhpSFLLAerrtgL6oHoyyRLnEhPWdZUNPnim"),
+//         {
+//             programId: TOKEN_PROGRAM_ID,
+//         }
+//     );
+
+//     console.log("Token                                         Balance");
+//     console.log("------------------------------------------------------------");
+//     tokenAccounts.value.forEach((tokenAccount) => {
+//         const accountData = AccountLayout.decode(tokenAccount.account.data);
+//         console.log(`${new PublicKey(accountData.mint)}   ${accountData.amount}`);
+//     });
+// })();
+
 (async () => {
     const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
 
     const tokenAccounts = await connection.getTokenAccountsByOwner(
-        new PublicKey("8qwq6WQ4cMRB2pZzU55pxsFpFztsyU8YsW8dwtoaN3W1"),
-        {
-            programId: TOKEN_PROGRAM_ID,
-        }
+        new PublicKey("EiryZW515JhpSFLLAerrtgL6oHoyyRLnEhPWdZUNPnim"),
+        { programId: TOKEN_PROGRAM_ID }
     );
 
-    console.log("Token                                         Balance");
-    console.log("------------------------------------------------------------");
-    tokenAccounts.value.forEach((tokenAccount) => {
+    const detailedAccounts = tokenAccounts.value.map((tokenAccount) => {
         const accountData = AccountLayout.decode(tokenAccount.account.data);
-        console.log(`${new PublicKey(accountData.mint)}   ${accountData.amount}`);
+        return {
+            accountAddress: tokenAccount.pubkey.toString(),
+            mintAddress: new PublicKey(accountData.mint).toString(),
+            amount: accountData.amount.toString(),
+            // Include other details here as needed
+        };
     });
-})();
 
-/*
-Token                                         Balance
-------------------------------------------------------------
-7e2X5oeAAJyUTi4PfSGXFLGhyPw2H8oELm1mx87ZCgwF  84
-AQoKYV7tYpTrFZN6P5oUufbQKAUr9mNYGe1TTJC9wajM  100
-AQoKYV7tYpTrFZN6P5oUufbQKAUr9mNYGe1TTJC9wajM  0
-*/
+    console.log(JSON.stringify(detailedAccounts, null, 2));
+})();
