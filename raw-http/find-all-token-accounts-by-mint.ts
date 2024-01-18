@@ -42,7 +42,7 @@ const req = https.request(options, (res) => {
     });
 
     res.on("end", () => {
-        console.log(JSON.parse(data));
+        console.log(JSON.stringify(JSON.parse(data), null, 2));
     });
 });
 
