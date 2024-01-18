@@ -8,5 +8,8 @@
         "esrun": "^3.2.26",
         "install": "^0.13.0",
         "typescript": "^5.3.3"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.5"
     }
 }
