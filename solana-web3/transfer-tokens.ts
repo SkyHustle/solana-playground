@@ -13,12 +13,6 @@ import { getOrCreateAssociatedTokenAccount, transfer } from "@solana/spl-token";
 
     const fromWallet = getKeypairFromEnvironment("SECRET_KEY");
 
-    // Wait for airdrop confirmation
-    // await connection.confirmTransaction(fromAirdropSignature);
-
-    // Generate a new wallet to receive newly minted token
-    // const toWallet = Keypair.generate();
-
     const toWallet = getKeypairFromEnvironment("SECRET_KEY_1");
 
     // Create new token mint
