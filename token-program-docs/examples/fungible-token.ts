@@ -11,13 +11,14 @@ const freezeAuthority = Keypair.generate();
 console.log(`Freeze Authority: ${freezeAuthority.publicKey.toBase58()}`);
 
 const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+console.log("connection ", connection);
 
 const mint = await createMint(
-    connection,
-    payer,
-    mintAuthority.publicKey,
-    freezeAuthority.publicKey,
-    9 // We are using 9 to match the CLI decimal default exactly
+  connection,
+  payer,
+  mintAuthority.publicKey,
+  freezeAuthority.publicKey,
+  9 // We are using 9 to match the CLI decimal default exactly
 );
 
 console.log(`Mint: ${mint.toBase58()}`);
@@ -35,12 +36,12 @@ const tokenAccountInfo = await getAccount(connection, tokenAccount.address);
 console.log(`Token Account Info: ${tokenAccountInfo.amount}`);
 
 await mintTo(
-    connection,
-    payer,
-    mint,
-    tokenAccount.address,
-    mintAuthority,
-    100000000000 // because decimals for the mint are set to 9
+  connection,
+  payer,
+  mint,
+  tokenAccount.address,
+  mintAuthority,
+  100000000000 // because decimals for the mint are set to 9
 );
 
 const updatedMintInfo = await getMint(connection, mint);
