@@ -1,8 +1,8 @@
-const anchor = require("@project-serum/anchor");
-const chainlink = require("@chainlink/solana-sdk");
-const provider = anchor.AnchorProvider.env();
+import * as anchor from "@project-serum/anchor";
+import { OCR2Feed } from "@chainlink/solana-sdk";
 
 async function main() {
+  const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
   const CHAINLINK_FEED_ADDRESS = "99B2bTijsU6f1GCT73HmdR7HCFFjGMBcPZY6jZ96ynrR";
@@ -10,8 +10,8 @@ async function main() {
   const feedAddress = new anchor.web3.PublicKey(CHAINLINK_FEED_ADDRESS); //SOL-USD Devnet Feed
 
   //load the data feed account
-  let dataFeed = await chainlink.OCR2Feed.load(CHAINLINK_PROGRAM_ID, provider);
-  let listener = null;
+  let dataFeed = await OCR2Feed.load(CHAINLINK_PROGRAM_ID, provider);
+  let listener: null | number = null;
 
   //listen for events agains the price feed, and grab the latest rounds price data
   listener = dataFeed.onRound(feedAddress, (event) => {
